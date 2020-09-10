@@ -1,6 +1,6 @@
-# API service homework (Python3)
+# API service homework
 
-Application which “manages” a transport data source: reads the data from csv, stores the data in an SQL (Postgres) database and publishes the data as a JSON API.
+Application which “manages” a transport data source: reads the data from csv, stores the data in an SQL (Postgres) database and publishes the data as a JSON API (Flask).
 
 
 ## Description ##
@@ -17,7 +17,7 @@ The application is a composition of 2 containers:
 
 The database is bootstrapped in **Dockerfile-db** which downloads the data in a csv format. 
 The csv file encoding is converted into UTF-8 (Unicode) which is supported by postgres.
-The rest of the bootstrapping is done by postgres during initialization via two scripts located in _docker-entrypoint-initdb.d:
+The rest of the bootstrapping is done during container initialization via two scripts located in _docker-entrypoint-initdb.d_:
 
 - _01_setup.sql_ - creates the table schema
 - _02_load.sh_ - loads the csv data into the table
@@ -26,7 +26,7 @@ The scripts are executed in sorted name order.
 
 ## Endpoints exposed
 
-This example app exposes the _/bus_stops_ endpoint, 
+This example app exposes the _/bus_stops_ GET endpoint, 
 which retrieves 20 bus stops in a bounding box ordered by their Manhattan distance from the bounding box center:
 
     http://localhost/api/v1/bus_stops
