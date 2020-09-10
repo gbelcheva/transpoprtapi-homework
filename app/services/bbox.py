@@ -18,10 +18,10 @@ class Bbox:
 
     def get_center(self) -> Coordinate:
         if self.center is None:
-            return Coordinate((self.min_coord.long + self.max_coord.long) / 2,
-                              (self.min_coord.lat + self.max_coord.lat) / 2)
-        else:
-            return self.center
+            self.center = Coordinate((self.min_coord.long + self.max_coord.long) / 2,
+                                     (self.min_coord.lat + self.max_coord.lat) / 2)
+
+        return self.center
 
     @staticmethod
     def validate_box(min_long, min_lat, max_long, max_lat):
