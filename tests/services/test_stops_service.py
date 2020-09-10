@@ -3,7 +3,7 @@ import testing.postgresql
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from services.bbox import Bbox
+from services.bbox import Bbox, Coordinate
 from services.data import stops_repo
 from services.data.models import Stop
 from services.stops_service import StopsService
@@ -58,3 +58,12 @@ def test_all_stops_outside_box(stops_service):
     actual_stops = stops_service.get_sorted_stops_in_bbox(EMPTY_BOX, number_closest_stops)
 
     assert len(actual_stops) == 0
+
+
+def test_manhattan_distance_calculation():
+    actual_distance = StopsService.calculate_manhattan_dist(Coordinate(long=0.236, lat=51.686),
+                                                            Stop(atcocode="", commonname="", longitude=0.2,
+                                                                 latitude=51.))
+
+    expected_distance = 0.722
+    assert expected_distance == actual_distance
