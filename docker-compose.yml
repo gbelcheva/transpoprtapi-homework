@@ -1,0 +1,28 @@
+version: '3.1'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile-app
+    ports:
+      - 80:80
+    depends_on:
+      - "tests"
+      - "db"
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile-tests
+  db:
+    build:
+      context: .
+      dockerfile: Dockerfile-db
+    restart: always
+    environment:
+      POSTGRES_USER: user # ideally a secret
+      POSTGRES_PASSWORD: password # ideally a secret
+    ports:
+      - 5432:5432
+    volumes:
+      - "./dbdata:/var/lib/postgresql/data"

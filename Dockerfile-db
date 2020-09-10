@@ -1,0 +1,10 @@
+FROM postgres:alpine
+
+# csv data
+RUN wget -O NaPTANcsv.zip "http://naptan.app.dft.gov.uk/DataRequest/Naptan.ashx?format=csv"
+RUN mkdir -p /naptan && unzip -o NaPTANcsv.zip -d /naptan && rm NaPTANcsv.zip
+RUN mv /naptan/Stops.csv Stops.csv && rm /naptan/* # && mv Stops.csv /naptan/Stops.csv
+RUN iconv -f ASCII -t UTF-8 Stops.csv > /naptan/Stops.csv && rm Stops.csv
+
+# bootstrap scripts
+COPY docker-entrypoint-initdb.d /docker-entrypoint-initdb.d/
