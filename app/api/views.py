@@ -11,7 +11,7 @@ log = logging.getLogger(__name__)
 stops_service = StopsService()
 
 
-@app.route('/bus_stops')
+@app.route('/api/v1/bus_stops')
 def bus_stops():
     try:
         min_long = parse_param(request, "min_long")
