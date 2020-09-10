@@ -8,12 +8,7 @@ services:
     ports:
       - 80:80
     depends_on:
-      - "tests"
       - "db"
-  tests:
-    build:
-      context: .
-      dockerfile: Dockerfile-tests
   db:
     build:
       context: .
